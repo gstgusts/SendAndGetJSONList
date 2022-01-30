@@ -1,0 +1,1 @@
+[{"points": 3, "username": "Gusts"}, {"points": 33, "username": "Valerija"}, {"points": 17, "username": "ALeksis"}]

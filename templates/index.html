@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function sendDataToServer() {
+           const username = document.getElementById('txtUsername').value;
+           const points = document.getElementById('txtPoints').value;
+
+           document.getElementById('txtUsername').value = '';
+           document.getElementById('txtPoints').value = '';
+
+            fetch('/save-points-to-file', {
+                method: 'POST',
+                headers: {
+                     'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, points: parseInt(points) })
+            }).then(response => response.json())
+              .then(data => {
+
+                  document.getElementById('results').innerHTML = '';
+
+                  for (let i = 0; i < data.length; i++) {
+                      const child = document.createElement('p');
+                      child.innerText = data[i].points + '=' + data[i].username;
+                      document.getElementById('results').appendChild(child);
+                  }
+              })
+        }
+    </script>
+</head>
+
+<input id="txtUsername" type="text">
+<input id="txtPoints" type="number">
+<input type="button" value="Send points" onclick="sendDataToServer()">
+
+<div id="results"></div>
+
+</body>
+</html>
